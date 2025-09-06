@@ -1,0 +1,105 @@
+<style>
+  /* Container for the schedule section */
+  #schedule-container {
+    padding: 40px 20px;
+    animation: fadeContainer 1.2s ease-in;
+    max-width: 1000px;
+    margin: auto;
+  }
+
+  /* Schedule Title Styling */
+  .schedule-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 30px;
+    animation: slideFadeDown 1s ease-out;
+  }
+
+  /* Table Styles */
+  .class-schedule {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+  }
+
+  .class-schedule th,
+  .class-schedule td {
+    padding: 12px 16px;
+    text-align: center;
+  }
+
+  .class-schedule th {
+    background-color: #4CAF50;
+    color: #fff;
+    border-radius: 8px 8px 0 0;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+  }
+
+  .class-schedule td {
+    background-color: #ffffff;
+    border-bottom: 1px solid #eee;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    font-size: 15px;
+    transition: background-color 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUpRow 0.5s ease forwards;
+  }
+
+  /* Hover effect */
+  .class-schedule tr:hover td {
+    background-color: #f9f9f9;
+  }
+
+  /* Break Row Styling */
+  .break-row td {
+    background-color: #ffe0b2 !important;
+    color: #d84315 !important;
+    font-style: italic;
+    font-weight: 600;
+  }
+
+  /* Animations */
+  @keyframes fadeInUpRow {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideFadeDown {
+    from {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeContainer {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* Responsive (optional) */
+  @media (max-width: 600px) {
+    .class-schedule th,
+    .class-schedule td {
+      padding: 10px;
+      font-size: 14px;
+    }
+
+    .schedule-title {
+      font-size: 1.5rem;
+    }
+  }
+</style>

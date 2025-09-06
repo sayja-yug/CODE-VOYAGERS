@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+  /* Fade-in Animation */
+  @keyframes fadeInRow {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .class-schedule {
+    width: 100%;
+    margin-top: 30px;
+    border-collapse: collapse;
+    animation: fadeInRow 1s ease;
+  }
+
+  .class-schedule th,
+  .class-schedule td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .class-schedule th {
+    background-color: #4CAF50;
+    color: white;
+  }
+
+  .class-schedule td {
+    background-color: #f9f9f9;
+  }
+
+  .fade-row {
+    animation: fadeInRow 0.6s ease forwards;
+  }
+
+  .centered-content {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    padding: 0 20px;
+  }
+
+  .break-row {
+    background-color: #FFEB3B !important;
+    font-weight: bold;
+  }
+
+  h3 {
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    color: #3F51B5;
+    animation: fadeInRow 1s ease-out;
+  }
+</style>
+
+<!-- Schedule Table with Animation -->
+<div class="centered-content">
+  <div>
+    <h3>Weekly Class Schedule</h3>
+    <table class="class-schedule">
+      <thead>
+        <tr>
+          <th>Sl. No.</th>
+          <th>Period</th>
+          <th>Time</th>
+          <th>Subject</th>
+          <th>Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="fade-row" style="animation-delay: 0.1s">
+          <td>1</td>
+          <td>Period 1</td>
+          <td>09:00 AM - 10:00 AM</td>
+          <td>Math</td>
+          <td>Lecture</td>
+        </tr>
+        <tr class="fade-row" style="animation-delay: 0.2s">
+          <td>2</td>
+          <td>Period 2</td>
+          <td>10:00 AM - 11:00 AM</td>
+          <td>Physics</td>
+          <td>Lecture</td>
+        </tr>
+        <tr class="fade-row" style="animation-delay: 0.3s">
+          <td>3</td>
+          <td>Period 3</td>
+          <td>11:00 AM - 12:00 PM</td>
+          <td>HSS</td>
+          <td>Lecture</td>
+        </tr>
+        <tr class="fade-row" style="animation-delay: 0.4s">
+          <td>4</td>
+          <td>Period 4</td>
+          <td>12:00 PM - 01:00 PM</td>
+          <td>CP</td>
+          <td>Lecture</td>
+        </tr>
+        <tr class="fade-row break-row" style="animation-delay: 0.5s">
+          <td>5</td>
+          <td>Break</td>
+          <td>01:00 PM - 02:00 PM</td>
+          <td>--</td>
+          <td>Break</td>
+        </tr>
+        <tr class="fade-row" style="animation-delay: 0.6s">
+          <td>6</td>
+          <td>Lab 1</td>
+          <td>02:00 PM - 05:00 PM</td>
+          <td>I to I</td>
+          <td>Lab</td>
+        </tr>
+        <tr class="fade-row" style="animation-delay: 0.7s">
+          <td>7</td>
+          <td>Lab 2</td>
+          <td>05:00 PM - 06:00 PM</td>
+          <td>I to I</td>
+          <td>Lab</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}

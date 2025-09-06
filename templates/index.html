@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartEd Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+  <div class="navbar">
+    <div class="smarted-logo">SmartEd</div>
+    <div>
+      <a href="/dashboard">Dashboard</a>
+      <a href="/timetable">Timetable</a>
+      <a href="/logout">Logout</a>
+    </div>
+  </div>
+
+  <div class="content-area">
+    <h1 class="title">Hello, {{ username }}! 👋</h1>
+    <p class="subtitle">Welcome to your SmartEd Dashboard</p>
+  </div>
+
+  <div class="content-area">
+    <h2 class="title">Class Schedules</h2>
+    {% for year in range(1, 5) %}
+    <div class="year-box">
+      <strong>{{ year }}{{ 'st' if year == 1 else 'nd' if year == 2 else 'rd' if year == 3 else 'th' }} Year</strong>
+      <div style="margin-top: 10px;">
+        <div class="menu-box" onclick="fetchSchedule({{ year }}, 'Semester 1')">
+          <a href="#">Semester 1</a>
+        </div>
+        <div class="menu-box" onclick="fetchSchedule({{ year }}, 'Semester 2')">
+          <a href="#">Semester 2</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Class Schedule Table -->
+  <div id="schedule-container" style="padding: 40px;"></div>
+
+  <script>
+    function fetchSchedule(year, semester) {
+      fetch(`/schedule/${year}/${semester}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.schedule) {
+            let scheduleHTML = `<h3>${semester} Class Schedule (${year} Year)</h3><table class="class-schedule">
+              <thead><tr><th>Sl No</th><th>Day</th><th>Period</th><th>Subject</th><th>Teacher</th></tr></thead><tbody>`;
+            
+            let slNo = 1;
+            data.schedule.forEach((entry) => {
+              entry.subjects.forEach((subject, colIndex) => {
+                const isBreak = subject === "Break";
+                const teacher = isBreak ? "—" : entry.teachers[colIndex];
+                scheduleHTML += `
+                  <tr class="${isBreak ? 'break-row' : ''}">
+                    <td>${slNo++}</td>
+                    <td>${entry.day}</td>
+                    <td>Period ${colIndex + 1}</td>
+                    <td>${subject}</td>
+                    <td>${teacher}</td>
+                  </tr>
+                `;
+              });
+            });
+            
+            scheduleHTML += "</tbody></table>";
+            document.getElementById('schedule-container').innerHTML = scheduleHTML;
+          } else {
+            document.getElementById('schedule-container').innerHTML = `<p>${data.error}</p>`;
+          }
+        })
+        .catch(err => console.error(err));
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="grid-2">
+  <div class="card">
+    <h2>Timetable Inputs</h2>
+    <form method="post" class="stack">
+      <label>Number of classrooms
+        <input type="number" name="classrooms" min="1" value="4" required>
+      </label>
+
+      <label>Number of batches
+        <input type="number" name="batches" min="1" value="3" required>
+      </label>
+
+      <label>Subjects (comma separated)
+        <input type="text" name="subjects" value="Maths, Physics, CS">
+      </label>
+
+      <label>Max classes per day
+        <input type="number" name="max_per_day" min="1" value="4">
+      </label>
+
+      <label>Classes per subject per week
+        <input type="number" name="per_week" min="1" value="3">
+      </label>
+
+      <label>Number of faculties
+        <input type="number" name="faculties" min="1" value="5">
+      </label>
+
+      <label>Avg leaves / month (info)
+        <input type="number" name="leaves_avg" min="0" value="1">
+      </label>
+
+      <label>Special / Fixed slots (comma)
+        <input type="text" name="fixed_slots" placeholder="Mon-9AM:Lab-1, Wed-10AM:Seminar">
+      </label>
+
+      <button class="btn primary" type="submit">Generate</button>
+    </form>
+  </div>
+
+  <div class="card">
+    <h2>Generated Timetable</h2>
+    {% if not batches %}
+      <p class="muted">Fill inputs and click <b>Generate</b> to see timetable here.</p>
+    {% else %}
+      {% for b in batches %}
+        <h3>{{ b.name }}</h3>
+        <div class="table">
+          <div class="thead">
+            <div>Slot</div><div>Subject</div><div>Teacher</div><div>Room</div>
+          </div>
+          {% for r in b.rows %}
+            <div class="trow">
+              <div>{{ r.slot }}</div>
+              <div>{{ r.subj }}</div>
+              <div>{{ r.teacher }}</div>
+              <div>{{ r.room }}</div>
+            </div>
+          {% endfor %}
+        </div>
+        <hr>
+      {% endfor %}
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}

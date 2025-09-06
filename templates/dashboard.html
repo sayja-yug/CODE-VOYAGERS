@@ -1,0 +1,341 @@
+{% block content %}
+<style>
+  /* Global Styles */
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #E0F7FA;
+  }
+
+  /* Navbar Styles */
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    background-color: #4CAF50;
+    padding: 10px 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    border-radius: 0 0 10px 10px;
+    animation: slideDown 0.8s ease-out;
+  }
+
+  .navbar a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    margin: 0 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.3s;
+  }
+
+  .navbar a:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+  }
+
+  /* Logo Animation */
+  .smarted-logo {
+    font-size: 3rem;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    animation: fadeInLogo 1.2s ease-out forwards;
+  }
+
+  /* Animations */
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInLogo {
+    from {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes fadeInUpRow {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Styling for Boxes */
+  .menu-box {
+    display: inline-block;
+    padding: 20px;
+    margin: 15px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    width: 200px;
+    text-align: center;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    cursor: pointer;
+    animation: fadeInUpRow 0.8s ease-out;
+  }
+
+  .menu-box:hover {
+    transform: translateY(-5px);
+    background-color: #f0f0f0;
+  }
+
+  .menu-box a {
+    text-decoration: none;
+    font-size: 1.2rem;
+    color: #3F51B5;
+    font-weight: bold;
+  }
+
+  /* Box Hover Animation */
+  .menu-box a:hover {
+    color: #45a049;
+  }
+
+  /* Class Schedule Table */
+  .class-schedule {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 8px;
+    margin-top: 20px;
+    animation: fadeInUpRow 1.5s ease-out;
+  }
+
+  .class-schedule th,
+  .class-schedule td {
+    padding: 12px 16px;
+    text-align: center;
+  }
+
+  .class-schedule th {
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 8px 8px 0 0;
+    font-size: 16px;
+  }
+
+  .class-schedule td {
+    background-color: #ffffff;
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    font-size: 15px;
+    transition: background-color 0.3s ease;
+  }
+
+  .class-schedule tr:hover td {
+    background-color: #f1f1f1;
+  }
+
+  .break-row td {
+    background-color: #ffe0b2 !important;
+    color: #d84315 !important;
+    font-style: italic;
+    font-weight: 600;
+  }
+
+  .content-area {
+    margin-top: 150px;
+    text-align: center;
+    padding: 20px;
+    animation: fadeInContent 1.5s ease-out forwards;
+  }
+
+  @keyframes fadeInContent {
+    from {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .title {
+    font-size: 2.5rem;
+    color: #3F51B5;
+    font-weight: bold;
+  }
+
+  .subtitle {
+    font-size: 1.2rem;
+    color: #7B7B7B;
+  }
+
+  /* Styling for Year-wise Category Boxes */
+  .year-box {
+    display: block;
+    margin: 20px auto;
+    padding: 15px;
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+
+  .year-box:hover {
+    transform: translateY(-5px);
+    background-color: #e1f5fe;
+  }
+
+  .year-box a {
+    text-decoration: none;
+    font-size: 1.2rem;
+    color: #0288d1;
+    font-weight: bold;
+  }
+
+  .year-box a:hover {
+    color: #45a049;
+  }
+</style>
+
+<!-- Navbar -->
+<div class="navbar">
+  <div class="smarted-logo">
+    SmartEd
+  </div>
+  <div>
+    <a href="/dashboard">Dashboard</a>
+    <a href="/timetable">Timetable</a>
+    <a href="/logout">Logout</a>
+  </div>
+</div>
+
+<!-- Welcome Section -->
+<div class="content-area">
+  <h1 class="title">Hello, {{ username }}! 👋</h1>
+  <p class="subtitle">Welcome to your SmartEd Dashboard</p>
+</div>
+
+
+<!-- Menu Boxes (Dashboard, Timetable, Logout) -->
+<div class="content-area">
+  <div class="menu-box" onclick="location.href='/dashboard'">
+    <a href="#">Dashboard</a>
+  </div>
+  <div class="menu-box" onclick="location.href='/timetable'">
+    <a href="#">Timetable</a>
+  </div>
+  <div class="menu-box" onclick="location.href='/logout'">
+    <a href="#">Logout</a>
+  </div>
+</div>
+
+<!-- Organized Year-wise Semester Boxes -->
+<div class="content-area">
+  <h2 class="title">Class Schedules</h2>
+
+  <!-- Loop Through Years -->
+  {% for year in range(1, 5) %}
+    <div class="year-box">
+      <strong>{{ year }}{{ 'st' if year == 1 else 'nd' if year == 2 else 'rd' if year == 3 else 'th' }} Year</strong>
+      <div style="margin-top: 10px;">
+        <div class="menu-box" onclick="showClassSchedule('Year {{ year }}', 'Semester 1')">
+          <a href="app.py">Semester 1</a>
+        </div>
+        <div class="menu-box" onclick="showClassSchedule('Year {{ year }}', 'Semester 2')">
+          <a href="app.py">Semester 2</a>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+
+<!-- Class Schedule Table -->
+<div id="schedule-container" style="padding: 40px;"></div>
+
+<script>
+  function showClassSchedule(year, semester) {
+    const scheduleContainer = document.getElementById('schedule-container');
+    scheduleContainer.innerHTML = ` 
+      <h3 class="schedule-heading">${semester} Class Schedule (${year})</h3> 
+      <table class="class-schedule">
+        <thead>
+          <tr>
+            <th>Sl No</th>
+            <th>Day</th>
+            <th>Period</th>
+            <th>Subject</th>
+            <th>Teacher</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${generateScheduleRows(year, semester)}
+        </tbody>
+      </table>
+    `;
+  }
+
+  function generateScheduleRows(year, semester) {
+    const schedules = {
+      '2025': {
+        'Semester 1': [
+          { day: "Monday", subjects: ["Maths", "Physics", "HSS", "CP", "Break", "Lab I", "Lab II"], teachers: ["Mr. A", "Ms. B", "Dr. C", "Mr. D", "", "Ms. E", "Dr. F"] },
+          { day: "Tuesday", subjects: ["CP", "I to I", "Physics", "Maths", "Break", "Lab I", "Lab II"], teachers: ["Mr. D", "Mr. H", "Ms. B", "Mr. A", "", "Dr. F", "Ms. E"] },
+          // Continue with full week...
+        ],
+        'Semester 2': [
+          // Add semester 2 schedule...
+        ]
+      },
+      '2026': {
+        'Semester 1': [
+          // Add 2026 Semester 1 schedule here...
+        ],
+        'Semester 2': [
+          // Add 2026 Semester 2 schedule here...
+        ]
+      }
+    };
+
+    let rows = '';
+    let slNo = 1;
+
+    schedules[year][semester].forEach((entry) => {
+      entry.subjects.forEach((subject, colIndex) => {
+        const isBreak = subject === "Break";
+        const rowClass = isBreak ? 'break-row' : '';
+        const teacher = isBreak ? "—" : entry.teachers[colIndex];
+        
+        rows += `
+          <tr class="${rowClass}" style="animation: fadeInUp 0.6s ease-out ${colIndex * 0.1}s;">
+            <td>${slNo++}</td>
+            <td>${entry.day}</td>
+            <td>Period ${colIndex + 1}</td>
+            <td>${subject}</td>
+            <td>${teacher}</td>
+          </tr>
+        `;
+      });
+    });
+
+    return rows;
+  }
+</script>
+
+
+{% endblock %}
